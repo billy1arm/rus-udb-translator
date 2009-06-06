@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if (IN_MANGOS_RUS)
 {
 	die('HACK!');
@@ -9,8 +9,8 @@ if (IN_MANGOS_RUS)
 *****************************************************************************/
 
 $config['dbhost'] = 'localhost'; // Сервер базы данных (по умолчания: localhost)
-$config['dbuser'] = 'mangos'; // Имя пользователя в БД
-$config['dbpass'] = 'mangos123dayver'; // Пароль пользователя БД
+$config['dbuser'] = 'root'; // Имя пользователя в БД
+$config['dbpass'] = ''; // Пароль пользователя БД
 $config['dbname_mangos'] = 'mangos'; // Имя базы данных
 $config['dbname_mangos_rus'] = 'mangos-rus'; // Имя базы данных
 $config['dbname_scriptdev2'] = 'scriptdev2'; // Имя базы данных
