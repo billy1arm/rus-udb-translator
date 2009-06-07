@@ -19,8 +19,6 @@ else
 
 include_once($config['site_dir'] . 'action/' . $action . '.php');
 
-$template->page_header();
-echo $template->create_template($template_file, $array_data);
-$template->page_footer();
+echo $template->page_header() . $template->create_template($template_file, $array_data) . $template->page_footer();
 
 ?>
