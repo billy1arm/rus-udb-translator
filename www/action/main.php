@@ -1,96 +1,46 @@
-﻿<?php
+<?php
 if (IN_MANGOS_RUS)
 {
 	die('HACK!');
 }
 
-$work->page_header();
+$tables = $db->fetch_big_array("SELECT * FROM `config_db`");
 
-$result = $db->query('SHOW TABLE STATUS FROM `' . $config['dbname_mangos_rus'] . '`');
-if ($result)
-{
-	while($res = mysql_fetch_array($result))
-	{
-		if ($res['Name'] != 'config')
-		{
-			$tables['mangos_rus'][$res['Name']] = $res['Rows'];
-			$i++;
-		}
-	}
-}
-else
-{
-	die('Error in ' . $config['dbname_mangos_rus']);
-}
-
-$result = $db->query('SHOW TABLE STATUS FROM `' . $config['dbname_scriptdev2_rus'] . '`');
-if ($result)
-{
-	while($res = mysql_fetch_array($result))
-	{
-		$tables['scriptdev2_rus'][$res['Name']] = $res['Rows'];
-		$i++;
-	}
-}
-else
-{
-	die('Error in ' . $config['dbname_scriptdev2_rus']);
-}
-
-echo '<div align="center">
-	<table border="0" cellspacing="0" cellpadding="0">
-		<tr>
-			<td><h2>Выбираем таблицу для работы</h2></td>
-		</tr>
-	</table>
-	<table border="1" cellspacing="0" cellpadding="2">
-		<tr>
-			<td>Наименование таблицы</td>
-			<td>Переведено строк</td>
-			<td>Всего строк</td>
-			<td>% перевода</td>
-		</tr>';
+$array_data = array();
+$template_file = 'main.tpl';
 
 $transl[1] = 0;
 $transl[2] = 0;
+$i = 1;
 
-foreach ($tables['mangos_rus'] as $name => $value)
+foreach ($tables as $id => $array_value)
 {
-	$temp_name = str_replace('locales_', '', $name);
-	if ($temp_name == 'creature' || $temp_name == 'gameobject' || $temp_name == 'item' || $temp_name == 'quest') $temp_name .= '_template';
-	$temp = $db->fetch_array('SHOW TABLE STATUS FROM `' . $config['dbname_mangos'] . '` LIKE \'' . $temp_name . '\'');
-	if ($temp['Rows'] == 0) $percent = 0; else $percent = round($value/$temp['Rows']*100, 2);
-	echo '		<tr>
-    <td>' . $name . '</td>
-    <td>' . $value . '</td>
-    <td>' . $temp['Rows'] . '</td>
-    <td>' . $percent . '</td>
-  </tr>';
-	$transl[1] = $transl[1] + $value;
-	$transl[2] = $transl[2] + $temp['Rows'];
+	if(is_array($array_value))
+	{
+		$temp_rus = $db->fetch_array('SHOW TABLE STATUS FROM `' . $config['dbname_' . $array_value['db'] . '_rus'] . '` LIKE \'' . $array_value['name_rus'] . '\'');
+		$temp_orig = $db->fetch_array('SHOW TABLE STATUS FROM `' . $config['dbname_' . $array_value['db']] . '` LIKE \'' . $array_value['name_orig'] . '\'');
+
+		if ($temp_orig['Rows'] == 0) $percent = 0; else $percent = round($temp_rus['Rows']/$temp_orig['Rows']*100, 2);
+
+		$array_data['ARRAY_TABLES'][$i] = array(
+			'NAME_TABLES' => $array_value['name_rus'],
+			'TRANSLATE_ROWS' => $temp_rus['Rows'],
+			'ALL_ROWS' => $temp_orig['Rows'],
+			'PERCENT_TRANSLATE' => $percent
+		);
+
+		$transl[1] = $transl[1] + $temp_rus['Rows'];
+		$transl[2] = $transl[2] + $temp_orig['Rows'];
+		$i++;
+	}
 }
-foreach ($tables['scriptdev2_rus'] as $name => $value)
-{
-	$temp = $db->fetch_array('SHOW TABLE STATUS FROM `' . $config['dbname_scriptdev2'] . '` LIKE \'' . $name . '\'');
-	if ($temp['Rows'] == 0) $percent = 0; else $percent = round($value/$temp['Rows']*100, 2);
-	echo '		<tr>
-    <td>' . $name . '</td>
-    <td>' . $value . '</td>
-    <td>' . $temp['Rows'] . '</td>
-    <td>' . $percent . '</td>
-  </tr>';
-	$transl[1] = $transl[1] + $value;
-	$transl[2] = $transl[2] + $temp['Rows'];
-}
+
 if ($transl[2] == 0) $percent = 0; else $percent = round($transl[1]/$transl[2]*100, 2);
-echo '		<tr>
-    <td><strong>Итого:</strong></td>
-    <td><strong>' . $transl[1] . '</strong></td>
-    <td><strong>' . $transl[2] . '</strong></td>
-    <td><strong>' . $percent . '</strong></td>
-  </tr>
-</table>';
 
+$array_data = array_merge($array_data, array(
+	'TRANSLATE_ROWS' => $transl[1],
+	'ALL_ROWS' => $transl[2],
+	'PERCENT_TRANSLATE' => $percent
+));
 
-$work->page_footer();
 ?>

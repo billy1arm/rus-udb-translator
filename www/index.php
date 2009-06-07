@@ -1,10 +1,11 @@
-﻿<?php
+<?php
 define ('IN_MANGOS_RUS', FALSE);
 
 include_once ('config.php');
 
 include_once ($config['inc_dir'] . 'db.php');
 include_once ($config['inc_dir'] . 'common.php');
+include_once ($config['inc_dir'] . 'template.php');
 
 if (!isset($_REQUEST['action']) || empty($_REQUEST['action']) || $work->url_check())
 {
@@ -17,4 +18,9 @@ else
 }
 
 include_once($config['site_dir'] . 'action/' . $action . '.php');
+
+$template->page_header();
+echo $template->create_template($template_file, $array_data);
+$template->page_footer();
+
 ?>
