@@ -23,6 +23,8 @@ foreach ($tables as $id => $array_value)
 		if ($temp_orig['Rows'] == 0) $percent = 0; else $percent = round($temp_rus['Rows']/$temp_orig['Rows']*100, 2);
 
 		$array_data['ARRAY_TABLES'][$i] = array(
+			'ID_TABLES' => $array_value['id'],
+			'NAME_ORIG_TABLES' => $array_value['name_orig'],
 			'NAME_TABLES' => $array_value['name_rus'],
 			'TRANSLATE_ROWS' => $temp_rus['Rows'],
 			'ALL_ROWS' => $temp_orig['Rows'],

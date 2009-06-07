@@ -13,7 +13,7 @@
 		</tr>
 <!-- ARRAY_TABLES_BEGIN -->
 		<tr>
-			<td>{NAME_TABLES}</td>
+			<td><a href="?action=table&id={ID_TABLES}"  title="Оригинал: {NAME_ORIG_TABLES}">{NAME_TABLES}</a></td>
 			<td>{TRANSLATE_ROWS}</td>
 			<td>{ALL_ROWS}</td>
 			<td>{PERCENT_TRANSLATE}</td>
@@ -21,9 +21,9 @@
 <!-- ARRAY_TABLES_END -->
 		<tr>
 			<td><strong>Итого:</strong></td>
-			<td>{TRANSLATE_ROWS}</td>
-			<td>{ALL_ROWS}</td>
-			<td>{PERCENT_TRANSLATE}</td>
+			<td><strong>{TRANSLATE_ROWS}</strong></td>
+			<td><strong>{ALL_ROWS}</strong></td>
+			<td><strong>{PERCENT_TRANSLATE}</strong></td>
 		</tr>
 	</table>
 </div>
