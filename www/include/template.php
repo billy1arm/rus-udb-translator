@@ -69,6 +69,8 @@ class Themes_Work
 			}
 		}
 
+		$content = str_replace('{THEME_URL}', $this->themes_url, $content);
+
 		if(get_magic_quotes_gpc())
 		{
 			$content = stripslashes($content);

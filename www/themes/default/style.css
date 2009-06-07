@@ -17,14 +17,36 @@ table {
   }
 
 
-a, a:active, a:visited {
+a, a:active, a:visited, img, img:active, img:visited {
+    border-style : hidden;
     color : #ccffff;
     text-decoration : none;
   }
 
 
-a:hover {
+a:hover, img:hover {
+    border-style : hidden;
     color : #ccffff;
     text-decoration : underline;
+  }
+
+
+.td-title-left, .td-title-center, .td-title-right {
+    font-weight : bolder;
+  }
+
+
+.td-left, .td-title-left {
+    text-align : left;
+  }
+
+
+.td-center, .td-title-center {
+    text-align : center;
+  }
+
+
+.td-right, .td-title-right {
+    text-align : right;
   }
 
