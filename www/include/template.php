@@ -82,14 +82,15 @@ class Themes_Work
 		global $config;
 
 		$array_data['TITLE'] = $config['title'];
+		$array_data['THEME_URL'] = $this->themes_url;
 		if ($title != '') $array_data['TITLE'] .= ' - ' . $title;
 
-		echo $this->create_template('header.tpl', $array_data);
+		return $this->create_template('header.tpl', $array_data);
 	}
 
 	function page_footer()
 	{
-		echo $this->create_template('footer.tpl', array());
+		return $this->create_template('footer.tpl', array());
 	}
 }
 

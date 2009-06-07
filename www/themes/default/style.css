@@ -1,0 +1,30 @@
+
+
+body {
+    background : #333333;
+    font : 14px monospace,'sans-serif';
+    color : #cccccc;
+  }
+
+
+table {
+    border : #cccccc inherit;
+  }
+
+
+.noborder_table {
+    border-style : hidden;
+  }
+
+
+a, a:active, a:visited {
+    color : #ccffff;
+    text-decoration : none;
+  }
+
+
+a:hover {
+    color : #ccffff;
+    text-decoration : underline;
+  }
+

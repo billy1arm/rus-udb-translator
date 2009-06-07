@@ -1,5 +1,5 @@
 <div align="center">
-	<table border="0" cellspacing="0" cellpadding="0">
+	<table border="0" cellspacing="0" cellpadding="0" class="noborder_table">
 		<tr>
 			<td><h2>Выбираем таблицу для работы</h2></td>
 		</tr>
