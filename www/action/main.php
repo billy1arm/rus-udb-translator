@@ -10,10 +10,11 @@ if(isset($_GET['id']) && !empty($_GET['id']) && ereg('^[0-9]+$', $_GET['id']))
 	$table_info = $db->fetch_big_array("SELECT * FROM `config_table` WHERE `id_table` =" . $_GET['id']);
 	$query_orig = "SELECT SQL_NO_CACHE COUNT(*) AS count FROM `" . $config['dbname_' . $table_data['db']] . "`.`" . $table_data['name_orig'] . "` WHERE ";
 	$query_rus = "SELECT SQL_NO_CACHE COUNT(*) AS count FROM `" . $config['dbname_' . $table_data['db'] . '_rus'] . "`.`" . $table_data['name_rus'] . "` WHERE ";
-	$query_translate = "SELECT SQL_NO_CACHE COUNT(*) AS count FROM `" . $config['dbname_' . $table_data['db'] . '_rus'] . "`.`" . $table_data['name_rus'] . "` WHERE ";
+	$count_translate = 0;
 
 	for ($i = 1; $i <= $table_info[0]; $i++)
 	{
+		$query_translate = "SELECT SQL_NO_CACHE COUNT(*) AS count FROM `" . $config['dbname_' . $table_data['db'] . '_rus'] . "`.`" . $table_data['name_rus'] . "` WHERE ";
 		if ($table_info[$i]['custom'] != 0)
 		{
 			$temp = explode(',', $table_info[$i]['name']);
@@ -44,11 +45,11 @@ if(isset($_GET['id']) && !empty($_GET['id']) && ereg('^[0-9]+$', $_GET['id']))
 		$temp = $db->fetch_array("SHOW COLUMNS FROM `" . $table_data['name_rus'] . "` FROM `" . $config['dbname_' . $table_data['db'] . '_rus'] . "` LIKE '" . $table_info[$i]['row_rus_name'] . "'");
 		if ($temp['Null'] == 'NO')
 		{
-			$table_info[$i]['row_rus_default'] = " != ''";
+			$table_info[$i]['row_rus_default'] = " = ''";
 		}
 		else
 		{
-			$table_info[$i]['row_rus_default'] = ' IS NOT NULL';
+			$table_info[$i]['row_rus_default'] = ' IS NULL';
 		}
 		$temp = $db->fetch_array("SHOW COLUMNS FROM `" . $table_data['name_orig'] . "` FROM `" . $config['dbname_' . $table_data['db']] . "` LIKE '" . $table_info[$i]['row_orig_name'] . "'");
 		if ($temp['Null'] == 'NO')
@@ -61,18 +62,19 @@ if(isset($_GET['id']) && !empty($_GET['id']) && ereg('^[0-9]+$', $_GET['id']))
 		}
 		$query_orig .= "`" . $table_info[$i]['row_orig_name'] . "`" . $table_info[$i]['row_orig_default'];
 		$query_rus .= "`" . $table_info[$i]['row_nonrus_name'] . "`" . $table_info[$i]['row_nonrus_default'];
-		$query_translate .= "(`" . $table_info[$i]['row_nonrus_name'] . "`" . $table_info[$i]['row_nonrus_default'] . " AND `" . $table_info[$i]['row_rus_name'] . "`" . $table_info[$i]['row_rus_default'] . ")";
+		$query_translate .= "`" . $table_info[$i]['row_nonrus_name'] . "`" . $table_info[$i]['row_nonrus_default'] . " AND `" . $table_info[$i]['row_rus_name'] . "`" . $table_info[$i]['row_rus_default'];
 		if ($i < $table_info[0])
 		{
 			$query_orig .= " OR ";
 			$query_rus .= " OR ";
-			$query_translate .= " OR ";
 		}
+		$temp_translate = $db->fetch_array($query_translate);
+		if($temp_translate['count'] > $count_translate) $count_translate = $temp_translate['count'];
 	}
 	$count_orig = $db->fetch_array($query_orig);
 	$count_rus = $db->fetch_array($query_rus);
-	$count_translate = $db->fetch_array($query_translate);
-	$db->query("UPDATE `config_db` SET `last_recalculate` = CURRENT_TIMESTAMP , `row_rus` = '" . $count_rus['count'] . "', `full_translate` = '" . $count_translate['count'] . "', `row_orig` = '" . $count_orig['count'] . "' WHERE `id` = " . $_GET['id']);
+	$count_translate = $count_rus['count'] - $count_translate;
+	$db->query("UPDATE `config_db` SET `last_recalculate` = CURRENT_TIMESTAMP , `row_rus` = '" . $count_rus['count'] . "', `full_translate` = '" . $count_translate . "', `row_orig` = '" . $count_orig['count'] . "' WHERE `id` = " . $_GET['id']);
 }
 
 $tables = $db->fetch_big_array("SELECT * FROM `config_db`");
