@@ -22,7 +22,7 @@
 			<td class="td-right">{ALL_ROWS}</td>
 			<td class="td-center">{PERCENT_TRANSLATE}</td>
 			<td class="td-center">{LAST_RECALCULATE}</td>
-			<td class="td-center"><a href="?action=table&id={ID_TABLES}" title="Редактирование"><img src="{THEME_URL}images/b_edit.png" alt="Редактирование" width="16" height="16" title="Редактирование" /></a>&nbsp;<a href="?id={ID_TABLES}" onclick="return confirm('Вы уверены?');" title="Пересчитать"><img src="{THEME_URL}images/b_search.png" alt="Пересчитать" width="16" height="16" title="Пересчитать" /></a></td>
+			<td class="td-center"><a href="?action=table_view&id={ID_TABLES}" title="Редактирование"><img src="{THEME_URL}images/b_edit.png" alt="Редактирование" width="16" height="16" title="Редактирование" /></a>&nbsp;<a href="?id={ID_TABLES}" onclick="return confirm('Вы уверены?');" title="Пересчитать"><img src="{THEME_URL}images/b_search.png" alt="Пересчитать" width="16" height="16" title="Пересчитать" /></a></td>
 		</tr>
 <!-- ARRAY_TABLES_END -->
 		<tr>
