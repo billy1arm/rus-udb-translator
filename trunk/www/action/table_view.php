@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if (IN_MANGOS_RUS)
 {
 	die('HACK!');
@@ -10,7 +10,7 @@ if(isset($_GET['id']) && !empty($_GET['id']) && ereg('^[0-9]+$', $_GET['id']))
 	$array_data['SITE_URL'] = $config['site_url'];
 	$array_data['SCRIPT_URL'] = $config['site_url'] . '?action=table_view&id=' . $_GET['id'];
 	$template_file = 'table_view.tpl';
-	
+
 	$table_data = $db->fetch_array("SELECT * FROM `config_db` WHERE `id` = " . $_GET['id']);
 	$table_info = $db->fetch_big_array("SELECT * FROM `config_table` WHERE `id_table` =" . $_GET['id']);
 	if ($table_data['row_orig'] == 0) $percent = 100; else $percent = round($table_data['full_translate']/$table_data['row_orig']*100, 2);
@@ -22,6 +22,32 @@ if(isset($_GET['id']) && !empty($_GET['id']) && ereg('^[0-9]+$', $_GET['id']))
 	$array_data['ALL_ROWS'] = $table_data['row_orig'];
 	$array_data['LAST_RECALCULATE'] = $table_data['last_recalculate'];
 	$array_data['PERCENT_TRANSLATE'] = $percent;
+	$array_data['ID_TABLES'] = $_GET['id'];
+	if ($table_data['row_rus'] == $table_data['row_orig'])
+	{
+		$array_data['IF_TABLE_NEW'] = false;
+	}
+	else
+	{
+		$array_data['IF_TABLE_NEW'] = true;
+	}
+	if ($table_data['row_rus'] == $table_data['full_translate'])
+	{
+		$array_data['IF_TABLE_PARTIALLY'] = false;
+	}
+	else
+	{
+		$array_data['IF_TABLE_PARTIALLY'] = true;
+	}
+	if ($table_data['row_rus'] == 0)
+	{
+		$array_data['IF_TABLE_TRANSLATED'] = false;
+	}
+	else
+	{
+		$array_data['IF_TABLE_TRANSLATED'] = true;
+	}
+	$array_data['IF_TABLE_EXPORT'] = true;
 }
 else
 {
