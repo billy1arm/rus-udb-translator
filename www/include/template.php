@@ -30,9 +30,9 @@ class Themes_Work
 					$add_content = $temp_content;
 					while (list($block_key, $block_val) = each($array_val))
 					{
-						if (substr($key, 0, 3) == 'IF_')
+						if (substr($block_key, 0, 3) == 'IF_')
 						{
-							if ($val == false)
+							if ($block_val == false)
 							{
 								$add_content = ereg_replace('<!-- ' . $block_key . '_BEGIN -->.*<!-- ' . $block_key . '_END -->', '', $add_content);
 							}
