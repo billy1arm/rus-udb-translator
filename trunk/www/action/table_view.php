@@ -48,6 +48,134 @@ if(isset($_GET['id']) && !empty($_GET['id']) && ereg('^[0-9]+$', $_GET['id']))
 		$array_data['IF_TABLE_TRANSLATED'] = true;
 	}
 	$array_data['IF_TABLE_EXPORT'] = true;
+
+	$array_data['IF_SELECT_NEW'] = false;
+	$array_data['IF_SELECT_PARTIALLY'] = false;
+	$array_data['IF_SELECT_TRANSLATED'] = false;
+	$array_data['IF_SELECT_EXPORT'] = false;
+	$array_data['IF_BIG_PREV'] = false;
+	$array_data['IF_PREV'] = false;
+	$array_data['IF_NEXT'] = false;
+	$array_data['IF_BIG_NEXT'] = false;
+	$array_data['IF_SELECT_SUBACT'] = false;
+
+	if (isset($_GET['subact']) && $_GET['subact'] == 'new')
+	{
+		$array_data['IF_SELECT_SUBACT'] = true;
+		$array_data['IF_SELECT_NEW'] = true;
+		$temp = $db->fetch_array("SHOW INDEX FROM `" . $config['dbname_' . $table_data['db']] . "`.`" . $table_data['name_orig'] . "`");
+		$index_field = $temp['Column_name'];
+		$temp = $db->fetch_big_array("SELECT `" . $index_field . "` FROM `" . $config['dbname_' . $table_data['db']] . "`.`" . $table_data['name_orig'] . "` WHERE `" . $table_data['name_orig'] . "`.`" . $index_field . "` NOT IN (SELECT `" . $index_field . "` FROM `" . $config['dbname_' . $table_data['db'] . '_rus'] . "`.`" . $table_data['name_rus'] . "`) ORDER BY `" . $config['dbname_' . $table_data['db']] . "`.`" . $table_data['name_orig'] . "`.`" . $index_field . "` ASC;");
+		$array_data['ALL_ROW'] = $temp[0];
+		if(isset($_GET['start']) && !empty($_GET['start']) && ereg('^[0-9]+$', $_GET['start']) && $_GET['start'] <= $array_data['ALL_ROW'] && $_GET['start'] != 0)
+		{
+			$start_row = $_GET['start'];
+		}
+		else
+		{
+			$start_row = 1;
+		}
+		if (($temp[0] - $start_row) > 20)
+		{
+			$end_row = $start_row + 19;
+		}
+		else
+		{
+			$end_row = $temp[0];
+		}
+		$array_data['SHOW_ROW'] = $end_row - $start_row + 1;
+		$all_page = ceil($temp[0]/20);
+		$cur_page = ceil($end_row/20);
+		if ($all_page > 9)
+		{
+			$start_page = $cur_page - 4;
+			if ($start_page < 1) $start_page = 1;
+			$end_page = $start_page + 8;
+			if ($end_page > $all_page)
+			{
+				$end_page = $all_page;
+				$start_page = $end_page - 8;
+			}
+			if ($start_page > 1)
+			{
+				$array_data['IF_BIG_PREV'] = true;
+				$big_prev_page = ($cur_page - 10) * 20 + 1;
+				if ($big_prev_page < 1) $big_prev_page = 1;
+				$array_data['URL_BIG_PREV'] = '?action=table_view&subact=new&start=' . $big_prev_page . '&id=' . $_GET['id'];
+			}
+			if ($cur_page > 1)
+			{
+				$array_data['IF_PREV'] = true;
+				$prev_page = ($cur_page - 2) * 20 + 1;
+				if ($prev_page < 1) $prev_page = 1;
+				$array_data['URL_PREV'] = '?action=table_view&subact=new&start=' . $prev_page . '&id=' . $_GET['id'];
+			}
+			if ($cur_page < $all_page)
+			{
+				$array_data['IF_NEXT'] = true;
+				$next_page = $cur_page * 20 + 1;
+				if ($next_page > $temp[0]) $next_page = $temp[0];
+				$array_data['URL_NEXT'] = '?action=table_view&subact=new&start=' . $next_page . '&id=' . $_GET['id'];
+			}
+			if ($end_page < $all_page)
+			{
+				$array_data['IF_BIG_NEXT'] = true;
+				$big_next_page = ($cur_page + 8) * 20 + 1;
+				if ($big_next_page > $temp[0]) $big_next_page = $temp[0];
+				$array_data['URL_BIG_NEXT'] = '?action=table_view&subact=new&start=' . $big_next_page . '&id=' . $_GET['id'];
+			}
+		}
+		else
+		{
+			$start_page = 1;
+			$end_page = $all_page;
+		}
+
+		for ($i=$start_page;$i<=$end_page;$i++)
+		{
+			$array_data['ARRAY_PAGE'][$i]['NUM_PAGE'] = $i;
+			$url_page = ($i - 1) * 20 + 1;
+			if ($url_page < 1) $url_page = 1;
+			if ($url_page > $temp[0]) $url_page = $temp[0];
+			$array_data['ARRAY_PAGE'][$i]['URL_PAGE'] = '?action=table_view&subact=new&start=' . $url_page . '&id=' . $_GET['id'];
+			if ($i == $cur_page)
+			{
+				$array_data['ARRAY_PAGE'][$i]['IF_NOT_CUR_PAGE1'] = false;
+				$array_data['ARRAY_PAGE'][$i]['IF_NOT_CUR_PAGE2'] = false;
+			}
+			else
+			{
+				$array_data['ARRAY_PAGE'][$i]['IF_NOT_CUR_PAGE1'] = true;
+				$array_data['ARRAY_PAGE'][$i]['IF_NOT_CUR_PAGE2'] = true;
+			}
+		}
+
+		if (!empty($table_data['url_orig']) && !empty($table_data['url_rus']))
+		{
+			$array_data['IF_WOWHEAD_URL'] = true;
+		}
+		else
+		{
+			$array_data['IF_WOWHEAD_URL'] = false;
+		}
+		$array_data['INDEX_FIELD'] = $index_field;
+
+		for ($i=$start_row; $i<=$end_row; $i++)
+		{
+			$array_data['ARRAY_ROW'][$i]['DB_ID'] = $_GET['id'];
+			$array_data['ARRAY_ROW'][$i]['ID_ROW'] = $temp[$i][$index_field];
+			if (!empty($table_data['url_orig']) && !empty($table_data['url_rus']))
+			{
+				$array_data['ARRAY_ROW'][$i]['IF_WOWHEAD_URL_ROW'] = true;
+				$array_data['ARRAY_ROW'][$i]['URL_WOWHEAD_ORIG'] = $table_data['url_orig'] . $temp[$i][$index_field];
+				$array_data['ARRAY_ROW'][$i]['URL_WOWHEAD_RUS'] = $table_data['url_rus'] . $temp[$i][$index_field];
+			}
+			else
+			{
+				$array_data['ARRAY_ROW'][$i]['IF_WOWHEAD_URL_ROW'] = false;
+			}
+		}
+	}
 }
 else
 {
