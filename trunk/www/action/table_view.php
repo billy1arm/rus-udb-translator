@@ -64,8 +64,10 @@ if(isset($_GET['id']) && !empty($_GET['id']) && ereg('^[0-9]+$', $_GET['id']))
 		$array_data['IF_SELECT_SUBACT'] = true;
 		$array_data['IF_SELECT_NEW'] = true;
 		$temp = $db->fetch_array("SHOW INDEX FROM `" . $config['dbname_' . $table_data['db']] . "`.`" . $table_data['name_orig'] . "`");
-		$index_field = $temp['Column_name'];
-		$temp = $db->fetch_big_array("SELECT `" . $index_field . "` FROM `" . $config['dbname_' . $table_data['db']] . "`.`" . $table_data['name_orig'] . "` WHERE `" . $table_data['name_orig'] . "`.`" . $index_field . "` NOT IN (SELECT `" . $index_field . "` FROM `" . $config['dbname_' . $table_data['db'] . '_rus'] . "`.`" . $table_data['name_rus'] . "`) ORDER BY `" . $config['dbname_' . $table_data['db']] . "`.`" . $table_data['name_orig'] . "`.`" . $index_field . "` ASC;");
+		$index_field_orig = $temp['Column_name'];
+		$temp = $db->fetch_array("SHOW INDEX FROM `" . $config['dbname_' . $table_data['db'] . '_rus'] . "`.`" . $table_data['name_rus'] . "`");
+		$index_field_rus = $temp['Column_name'];
+		$temp = $db->fetch_big_array("SELECT `" . $index_field_orig . "` AS " . $index_field_rus . " FROM `" . $config['dbname_' . $table_data['db']] . "`.`" . $table_data['name_orig'] . "` WHERE `" . $table_data['name_orig'] . "`.`" . $index_field_orig . "` NOT IN (SELECT `" . $index_field_rus . "` FROM `" . $config['dbname_' . $table_data['db'] . '_rus'] . "`.`" . $table_data['name_rus'] . "`) ORDER BY `" . $config['dbname_' . $table_data['db']] . "`.`" . $table_data['name_orig'] . "`.`" . $index_field_orig . "` ASC;");
 		$array_data['ALL_ROW'] = $temp[0];
 		if(isset($_GET['start']) && !empty($_GET['start']) && ereg('^[0-9]+$', $_GET['start']) && $_GET['start'] <= $array_data['ALL_ROW'] && $_GET['start'] != 0)
 		{
@@ -158,12 +160,12 @@ if(isset($_GET['id']) && !empty($_GET['id']) && ereg('^[0-9]+$', $_GET['id']))
 		{
 			$array_data['IF_WOWHEAD_URL'] = false;
 		}
-		$array_data['INDEX_FIELD'] = $index_field;
+		$array_data['INDEX_FIELD'] = $index_field_rus;
 
 		for ($i=$start_row; $i<=$end_row; $i++)
 		{
 			$array_data['ARRAY_ROW'][$i]['DB_ID'] = $_GET['id'];
-			$array_data['ARRAY_ROW'][$i]['ID_ROW'] = $temp[$i][$index_field];
+			$array_data['ARRAY_ROW'][$i]['ID_ROW'] = $temp[$i][$index_field_rus];
 			if (!empty($table_data['url_orig']) && !empty($table_data['url_rus']))
 			{
 				$array_data['ARRAY_ROW'][$i]['IF_WOWHEAD_URL_ROW'] = true;
