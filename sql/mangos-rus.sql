@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Июн 10 2009 г., 05:54
--- Версия сервера: 5.1.34
--- Версия PHP: 5.2.9-2
+-- Время создания: Июн 11 2009 г., 16:11
+-- Версия сервера: 5.0.77
+-- Версия PHP: 5.2.9
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -29,7 +29,7 @@ DROP TABLE IF EXISTS `config`;
 CREATE TABLE IF NOT EXISTS `config` (
   `name` varchar(50) NOT NULL,
   `value` varchar(255) NOT NULL,
-  PRIMARY KEY (`name`)
+  PRIMARY KEY  (`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -50,38 +50,38 @@ INSERT INTO `config` (`name`, `value`) VALUES
 
 DROP TABLE IF EXISTS `config_db`;
 CREATE TABLE IF NOT EXISTS `config_db` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `last_recalculate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `db` varchar(50) NOT NULL DEFAULT 'mangos',
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `last_recalculate` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  `db` varchar(50) NOT NULL default 'mangos',
   `name_rus` varchar(50) NOT NULL,
   `name_orig` varchar(50) NOT NULL,
-  `row_rus` int(11) unsigned NOT NULL DEFAULT '0',
-  `full_translate` int(11) unsigned NOT NULL DEFAULT '0',
-  `row_orig` int(11) unsigned NOT NULL DEFAULT '0',
-  `url_orig` varchar(50) DEFAULT NULL,
-  `url_rus` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `row_rus` int(11) unsigned NOT NULL default '0',
+  `full_translate` int(11) unsigned NOT NULL default '0',
+  `row_orig` int(11) unsigned NOT NULL default '0',
+  `url_orig` varchar(50) default NULL,
+  `url_rus` varchar(50) default NULL,
+  `description` text,
+  PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
 --
 -- Дамп данных таблицы `config_db`
 --
 
-INSERT INTO `config_db` (`id`, `last_recalculate`, `db`, `name_rus`, `name_orig`, `row_rus`, `full_translate`, `row_orig`, `url_orig`, `url_rus`) VALUES
-(1, '2009-06-08 10:37:18', 'mangos', 'creature_ai_texts', 'creature_ai_texts', 0, 0, 559, NULL, NULL),
-(2, '2009-06-08 10:37:20', 'mangos', 'locales_achievement_reward', 'achievement_reward', 0, 0, 9, NULL, NULL),
-(3, '2009-06-08 10:37:25', 'mangos', 'locales_creature', 'creature_template', 19527, 19527, 26300, 'http://ru.wowhead.com/?npc=', 'http://www.wowhead.com/?npc='),
-(4, '2009-06-08 10:37:27', 'mangos', 'locales_gameobject', 'gameobject_template', 15008, 15008, 17004, 'http://www.wowhead.com/?object=', 'http://ru.wowhead.com/?object='),
-(5, '2009-06-08 10:37:33', 'mangos', 'locales_item', 'item_template', 31257, 31257, 31408, 'http://www.wowhead.com/?item=', 'http://ru.wowhead.com/?item='),
-(6, '2009-06-08 10:37:35', 'mangos', 'locales_npc_option', 'npc_option', 48, 48, 48, NULL, NULL),
-(7, '2009-06-08 10:37:40', 'mangos', 'locales_npc_text', 'npc_text', 5110, 3904, 5113, NULL, NULL),
-(8, '2009-06-08 10:37:43', 'mangos', 'locales_page_text', 'page_text', 1265, 1265, 1624, NULL, NULL),
-(9, '2009-06-08 10:37:46', 'mangos', 'locales_points_of_interest', 'points_of_interest', 0, 0, 125, NULL, NULL),
-(10, '2009-06-08 10:37:50', 'mangos', 'locales_quest', 'quest_template', 8414, 4207, 8423, 'http://www.wowhead.com/?quest=', 'http://www.wowhead.com/?quest='),
-(11, '2009-06-08 10:37:53', 'mangos', 'localized_texts', 'localized_texts', 1, 1, 177, NULL, NULL),
-(12, '2009-06-08 10:37:56', 'mangos', 'mangos_string', 'mangos_string', 260, 260, 649, NULL, NULL),
-(13, '2009-06-08 10:37:58', 'scriptdev2', 'custom_texts', 'custom_texts', 0, 0, 0, NULL, NULL),
-(14, '2009-06-08 10:38:01', 'scriptdev2', 'script_texts', 'script_texts', 1, 1, 1559, NULL, NULL);
+INSERT INTO `config_db` (`id`, `last_recalculate`, `db`, `name_rus`, `name_orig`, `row_rus`, `full_translate`, `row_orig`, `url_orig`, `url_rus`, `description`) VALUES
+(1, '2009-06-10 23:44:45', 'mangos', 'creature_ai_texts', 'creature_ai_texts', 0, 0, 559, NULL, NULL, 'В этой таблице содержаться тексты, использующиеся в скриптах eventai. Таблица отвечает за текст, тип отображения(сказать/прокричать/сделать жест) и соответствующие звуки или жесты.'),
+(2, '2009-06-10 23:44:47', 'mangos', 'locales_achievement_reward', 'achievement_reward', 0, 0, 9, NULL, NULL, 'Данная таблица содержит награды за достижения.'),
+(3, '2009-06-10 23:44:51', 'mangos', 'locales_creature', 'creature_template', 19527, 19527, 26300, 'http://ru.wowhead.com/?npc=', 'http://www.wowhead.com/?npc=', 'Таблица используеться для предоставления переведенных названий существ клиентам с определенной локализацией.'),
+(4, '2009-06-10 23:44:54', 'mangos', 'locales_gameobject', 'gameobject_template', 15008, 15008, 17004, 'http://www.wowhead.com/?object=', 'http://ru.wowhead.com/?object=', 'Таблица используеться для предоставления переведенных названий игровых объектов клиентам с определенной локализацией.'),
+(5, '2009-06-10 23:44:59', 'mangos', 'locales_item', 'item_template', 31257, 31257, 31408, 'http://www.wowhead.com/?item=', 'http://ru.wowhead.com/?item=', 'Таблица используеться для предоставления переведенных названий предметов клиентам с определенной локализацией.'),
+(6, '2009-06-10 23:45:02', 'mangos', 'locales_npc_option', 'npc_option', 48, 48, 48, NULL, NULL, 'Таблица используеться для предоставления переведенных диалогов НИП клиентам с определенной локализацией.'),
+(7, '2009-06-10 23:53:13', 'mangos', 'locales_npc_text', 'npc_text', 5110, 3904, 5123, NULL, NULL, 'Таблица используеться для предоставления переведенных текстов НИП клиентам с определенной локализацией.'),
+(8, '2009-06-10 23:45:20', 'mangos', 'locales_page_text', 'page_text', 1265, 1265, 1624, NULL, NULL, 'Таблица используеться для предоставления переведенных текстов, используемых в предметах, клиентам с определенной локализацией.'),
+(9, '2009-06-10 23:45:24', 'mangos', 'locales_points_of_interest', 'points_of_interest', 0, 0, 125, NULL, NULL, 'Таблица используеться для предоставления переведенных названий целей поиска клиентам с определенной локализацией.'),
+(10, '2009-06-10 23:45:28', 'mangos', 'locales_quest', 'quest_template', 8414, 4207, 8423, 'http://www.wowhead.com/?quest=', 'http://www.wowhead.com/?quest=', 'Таблица используеться для предоставления переведенных квестов клиентам с определенной локализацией.'),
+(12, '2009-06-10 23:45:39', 'mangos', 'mangos_string', 'mangos_string', 260, 260, 649, NULL, NULL, 'Cодержит все сообщения, посылаемые сервером игрокам. Основная цель таблицы - перевод этих сообщений.'),
+(13, '2009-06-10 23:45:42', 'scriptdev2', 'custom_texts', 'custom_texts', 0, 0, 0, NULL, NULL, 'Таблица используеться для предоставления переведенных произвольных текстов в SD2 клиентам с определенной локализацией.'),
+(14, '2009-06-10 23:45:44', 'scriptdev2', 'script_texts', 'script_texts', 1, 1, 1559, NULL, NULL, 'Таблица используеться для предоставления переведенных сообщений в SD2 клиентам с определенной локализацией.');
 
 -- --------------------------------------------------------
 
@@ -92,11 +92,11 @@ INSERT INTO `config_db` (`id`, `last_recalculate`, `db`, `name_rus`, `name_orig`
 DROP TABLE IF EXISTS `config_table`;
 CREATE TABLE IF NOT EXISTS `config_table` (
   `id_table` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL DEFAULT '',
-  `custom` tinyint(1) NOT NULL DEFAULT '0',
-  `default` tinyint(1) NOT NULL DEFAULT '0',
+  `name` varchar(50) NOT NULL default '',
+  `custom` tinyint(1) NOT NULL default '0',
+  `default` tinyint(1) NOT NULL default '0',
   `row_orig_name` varchar(50) NOT NULL,
-  PRIMARY KEY (`id_table`,`name`)
+  PRIMARY KEY  (`id_table`,`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
