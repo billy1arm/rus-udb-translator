@@ -16,7 +16,7 @@
 		</tr>
 <!-- ARRAY_TABLES_BEGIN -->
 		<tr>
-			<td class="td-left"><span title="Оригинал: {NAME_ORIG_TABLES}">{NAME_TABLES}</span></td>
+			<td class="td-left"><span title="Описание: {DESCRIPTION} Использует данные из {NAME_ORIG_TABLES}">{NAME_TABLES}</span></td>
 			<td class="td-right">{TRANSLATE_ROWS}</td>
 			<td class="td-right">{FULL_TRANSLATE}</td>
 			<td class="td-right">{ALL_ROWS}</td>

@@ -94,6 +94,7 @@ foreach ($tables as $id => $array_value)
 
 		$array_data['ARRAY_TABLES'][$id] = array(
 			'ID_TABLES' => $array_value['id'],
+			'DESCRIPTION' => $array_value['description'],
 			'NAME_ORIG_TABLES' => $array_value['name_orig'],
 			'NAME_TABLES' => $array_value['name_rus'],
 			'TRANSLATE_ROWS' => $array_value['row_rus'],
