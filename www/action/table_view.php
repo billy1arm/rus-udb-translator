@@ -169,8 +169,8 @@ if(isset($_GET['id']) && !empty($_GET['id']) && ereg('^[0-9]+$', $_GET['id']))
 			if (!empty($table_data['url_orig']) && !empty($table_data['url_rus']))
 			{
 				$array_data['ARRAY_ROW'][$i]['IF_WOWHEAD_URL_ROW'] = true;
-				$array_data['ARRAY_ROW'][$i]['URL_WOWHEAD_ORIG'] = $table_data['url_orig'] . $temp[$i][$index_field];
-				$array_data['ARRAY_ROW'][$i]['URL_WOWHEAD_RUS'] = $table_data['url_rus'] . $temp[$i][$index_field];
+				$array_data['ARRAY_ROW'][$i]['URL_WOWHEAD_ORIG'] = $table_data['url_orig'] . $temp[$i][$index_field_rus];
+				$array_data['ARRAY_ROW'][$i]['URL_WOWHEAD_RUS'] = $table_data['url_rus'] . $temp[$i][$index_field_rus];
 			}
 			else
 			{
