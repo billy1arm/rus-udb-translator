@@ -102,7 +102,7 @@
 		</tr>
 <!-- ARRAY_ROW_BEGIN -->
 		<tr>
-			<td class="td-right">&nbsp;<a href="?action=table_new&db_id={DB_ID}&id={ID_ROW}">{ID_ROW}</a>&nbsp;</td>
+			<td class="td-right">&nbsp;<a href="?action=table_{SUBACTION}&db_id={DB_ID}&id={ID_ROW}">{ID_ROW}</a>&nbsp;</td>
 <!-- IF_WOWHEAD_URL_ROW_BEGIN -->
 			<td class="td-center">&nbsp;<a href="{URL_WOWHEAD_ORIG}" title="Ссылка на Wowhead (Английский)" target="_blank">{URL_WOWHEAD_ORIG}</a>&nbsp;</td>
 			<td class="td-center">&nbsp;<a href="{URL_WOWHEAD_RUS}" title="Ссылка на Wowhead (Русский)" target="_blank">{URL_WOWHEAD_RUS}</a>&nbsp;</td>
