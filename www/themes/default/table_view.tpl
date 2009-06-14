@@ -43,7 +43,7 @@
 				<a href="?action=table_view&subact=translated&id={ID_TABLES}" title="Переведенные"><img src="{THEME_URL}images/b_ftext.png" alt="Переведенные" width="16" height="16" title="Переведенные" /></a>
 <!-- IF_TABLE_TRANSLATED_END -->
 <!-- IF_TABLE_EXPORT_BEGIN -->
-				<a href="?action=table_view&subact=export&id={ID_TABLES}" title="Экспорт таблицы"><img src="{THEME_URL}images/b_tblexport.png" alt="Экспорт таблиц" width="16" height="16" title="Экспорт таблиц" /></a>
+				<a href="?action=table_export&id={ID_TABLES}" title="Экспорт таблицы"><img src="{THEME_URL}images/b_tblexport.png" alt="Экспорт таблиц" width="16" height="16" title="Экспорт таблиц" /></a>
 <!-- IF_TABLE_EXPORT_END -->
 			</td>
 		</tr>
@@ -61,9 +61,6 @@
 <!-- IF_SELECT_TRANSLATED_BEGIN -->
 				Сформирован список строк, полностью переведенных.  Показано строк: {SHOW_ROW} из {ALL_ROW}.
 <!-- IF_SELECT_TRANSLATED_END -->
-<!-- IF_SELECT_EXPORT_BEGIN -->
-				Подготовка к экспорту. Всего экспортируется строк перевода: {ALL_ROW}.
-<!-- IF_SELECT_EXPORT_END -->
 			</td>
 		</tr>
 	</table>

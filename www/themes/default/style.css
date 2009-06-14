@@ -31,6 +31,11 @@ a:hover, img:hover {
   }
 
 
+td {
+	vertical-align : middle;
+  }
+
+
 .td-title-left, .td-title-center, .td-title-right {
     font-weight : bolder;
   }
@@ -50,3 +55,8 @@ a:hover, img:hover {
     text-align : right;
   }
 
+.textinput {
+	background-color : #444444;
+	color : #cccccc;
+	border-color : #333333;
+  }

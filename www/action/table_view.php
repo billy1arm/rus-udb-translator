@@ -52,14 +52,13 @@ if(isset($_GET['id']) && !empty($_GET['id']) && ereg('^[0-9]+$', $_GET['id']))
 	$array_data['IF_SELECT_NEW'] = false;
 	$array_data['IF_SELECT_PARTIALLY'] = false;
 	$array_data['IF_SELECT_TRANSLATED'] = false;
-	$array_data['IF_SELECT_EXPORT'] = false;
 	$array_data['IF_BIG_PREV'] = false;
 	$array_data['IF_PREV'] = false;
 	$array_data['IF_NEXT'] = false;
 	$array_data['IF_BIG_NEXT'] = false;
 	$array_data['IF_SELECT_SUBACT'] = false;
 
-	if (isset($_GET['subact']) && ($_GET['subact'] == 'new' || $_GET['subact'] == 'partially' || $_GET['subact'] == 'translated' || $_GET['subact'] == 'export'))
+	if (isset($_GET['subact']) && ($_GET['subact'] == 'new' || $_GET['subact'] == 'partially' || $_GET['subact'] == 'translated'))
 	{
 		$array_data['IF_SELECT_SUBACT'] = true;
 		if ($_GET['subact'] == 'new')
@@ -191,11 +190,6 @@ if(isset($_GET['id']) && !empty($_GET['id']) && ereg('^[0-9]+$', $_GET['id']))
 				$db->query("UPDATE `config_db` SET `last_recalculate` = CURRENT_TIMESTAMP , `full_translate` = '" . $temp[0] . "' WHERE `id` = " . $_GET['id']);
 				if ($temp[0] > $tmp['row_rus']) $db->query("UPDATE `config_db` SET `last_recalculate` = CURRENT_TIMESTAMP , `row_rus` = '" . $temp[0] . "' WHERE `id` = " . $_GET['id']);
 			}
-		}
-		elseif ($_GET['subact'] == 'export')
-		{
-			$array_data['IF_SELECT_EXPORT'] = true;
-			$array_data['IF_SELECT_SUBACT'] = false;
 		}
 		else
 		{
