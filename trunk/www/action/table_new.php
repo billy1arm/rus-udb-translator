@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if (IN_MANGOS_RUS)
 {
 	die('HACK!');
@@ -15,18 +15,18 @@ if ((isset($_GET['db_id']) && !empty($_GET['db_id']) && ereg('^[0-9]+$', $_GET['
 	$array_data['TABLE_URL'] = $config['site_url'] . '?action=table_view&subact=new&id=' . $_GET['db_id'];
 	$array_data['SCRIPT_URL'] = $config['site_url'] . '?action=table_new&db_id=' . $_GET['db_id'] . '&id=' . $_GET['id'];
 	$array_data['ID_ROW'] = $_GET['id'];
-	
+
 	$table_data = $db->fetch_array("SELECT * FROM `config_db` WHERE `id` = " . $_GET['db_id']);
 	$table_info = $db->fetch_big_array("SELECT * FROM `config_table` WHERE `id_table` =" . $_GET['db_id']);
-	
+
 	$array_data['NAME_TABLES'] = $table_data['name_rus'];
 	$array_data['NAME_ORIG_TABLES'] = $table_data['name_orig'];
-	
+
 	$temp = $db->fetch_array("SHOW INDEX FROM `" . $config['dbname_' . $table_data['db']] . "`.`" . $table_data['name_orig'] . "`");
 	$index_field_orig = $temp['Column_name'];
 	$temp = $db->fetch_array("SHOW INDEX FROM `" . $config['dbname_' . $table_data['db'] . '_rus'] . "`.`" . $table_data['name_rus'] . "`");
 	$index_field_rus = $temp['Column_name'];
-	
+
 	$array_data['NAME_ORIG_INDEX'] = $index_field_orig;
 	$array_data['NAME_RUS_INDEX'] = $index_field_rus;
 
@@ -100,7 +100,7 @@ if ((isset($_GET['db_id']) && !empty($_GET['db_id']) && ereg('^[0-9]+$', $_GET['
 		{
 			$table_info[$i]['row_default_data'] = $temp[$table_info[$i]['row_orig_name']];
 		}
-		
+
 		$array_data['ARRAY_FIELD'][$i] = array (
 			'DESCRIPTION' => $table_info[$i]['description'],
 			'NAME_OF_ORIG_FIELD' => $table_info[$i]['row_orig_name'],
@@ -124,7 +124,7 @@ if ((isset($_GET['db_id']) && !empty($_GET['db_id']) && ereg('^[0-9]+$', $_GET['
 	{
 		$array_data['IF_WOWHEAD_URL'] = false;
 	}
-	
+
 	if (isset($_GET['save']) && $_GET['save'] == 'true')
 	{
 		if (isset($_POST['saved']) && $_POST['saved'] == 'saved')
@@ -191,7 +191,6 @@ if ((isset($_GET['db_id']) && !empty($_GET['db_id']) && ereg('^[0-9]+$', $_GET['
 		}
 		$db->query($query);
 	}
-
 }
 else
 {
