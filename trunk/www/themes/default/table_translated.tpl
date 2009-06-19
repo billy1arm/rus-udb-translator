@@ -31,22 +31,17 @@
 			</tr>
 <!-- ARRAY_FIELD_BEGIN -->
 			<tr>
-				<td class="td-left"><span title="Описание: {DESCRIPTION} Оригинал: {NAME_OF_ORIG_FIELD}">{NAME_OF_RUS_FIELD}</span></td>
+				<td class="td-left"><span title="Описание: {DESCRIPTION} Оригинал: {NAME_OF_ORIG_FIELD}">{NAME_OF_RUS_FIELD}</span><input type="checkbox" name="change_{NAME_OF_RUS_FIELD}" id="change_{NAME_OF_RUS_FIELD}" style="display:none;" /></td>
 				<td class="td-center"><textarea name="text_of_{NAME_OF_ORIG_FIELD}" cols="40" rows="5" readonly="readonly" id="text_of_orig" class="textinput">{TEXT_OF_ORIG}</textarea></td>
-				<td class="td-center"><textarea name="text_of_{NAME_OF_RUS_FIELD}" id="text_of_rus" <!-- IF_SAVED_BEGIN -->readonly="readonly" <!-- IF_SAVED_END -->cols="40" rows="5" class="textinput">{TEXT_OF_RUS}</textarea></td>
+				<td class="td-center"><textarea name="text_of_{NAME_OF_RUS_FIELD}" id="text_of_rus" cols="40" rows="5" class="textinput" onchange="document.edit.change_{NAME_OF_RUS_FIELD}.checked='checked'">{TEXT_OF_RUS}</textarea></td>
 			</tr>
 <!-- ARRAY_FIELD_END -->
 		</table>
-<!-- IF_NOT_SAVED_BEGIN -->
         <br />
 		<table border="0" cellspacing="0" cellpadding="0" class="noborder_table">
-			<tr>
-				<td class="td-title-center"><input name="saved" type="checkbox" value="saved" />Закончить перевод строки?</td>
-			</tr>
 			<tr>
 				<td class="td-title-center"><input name="save" type="submit" value="Сохранить" /></td>
 			</tr>
 		</table>
-<!-- IF_NOT_SAVED_END -->
     </form>
 </div>
