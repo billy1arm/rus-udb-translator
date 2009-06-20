@@ -105,7 +105,7 @@ if ((isset($_GET['db_id']) && !empty($_GET['db_id']) && ereg('^[0-9]+$', $_GET['
 		$temp = $db->fetch_array("SELECT `" . $table_info[$i]['row_orig_name'] . "` FROM `" . $config['dbname_' . $table_data['db']] . "`.`" . $table_data['name_orig'] . "` WHERE `" . $index_field_orig . "` = " . $_GET['id']);
 		$table_info[$i]['row_orig_data'] = $temp[$table_info[$i]['row_orig_name']];
 		$table_info[$i]['row_nonrus_data'] = $temp[$table_info[$i]['row_orig_name']];
-		$temp = $db->fetch_array("SELECT `" . $table_info[$i]['row_rus_name'] . "` FROM `" . $config['dbname_' . $table_data['db']. '_rus'] . "`.`" . $table_data['name_rus'] . "` WHERE `" . $index_field_orig . "` = " . $_GET['id']);
+		$temp = $db->fetch_array("SELECT `" . $table_info[$i]['row_rus_name'] . "` FROM `" . $config['dbname_' . $table_data['db']. '_rus'] . "`.`" . $table_data['name_rus'] . "` WHERE `" . $index_field_rus . "` = " . $_GET['id']);
 		$table_info[$i]['row_rus_data'] = $temp[$table_info[$i]['row_rus_name']];
 		if ($table_info[$i]['default'] == 1)
 		{
@@ -127,7 +127,13 @@ if ((isset($_GET['db_id']) && !empty($_GET['db_id']) && ereg('^[0-9]+$', $_GET['
 
 	if (isset($_GET['save']) && $_GET['save'] == 'true')
 	{
-		//
+		for ($i = 1; $i <= $table_info[0]; $i++)
+		{
+			if (isset($_POST['change_' . $table_info[$i]['row_rus_name']]) && $_POST['change_' . $table_info[$i]['row_rus_name']] == 'on')
+			{
+				$db->query("UPDATE `" . $config['dbname_' . $table_data['db']. '_rus'] . "`.`" . $table_data['name_rus'] . "` SET `" . $table_info[$i]['row_rus_name'] . "` = '" . $_POST['text_of_' . $table_info[$i]['row_rus_name']] . "' WHERE `" . $index_field_rus . "` = " . $_GET['id']);
+			}
+		}
 	}
 }
 else

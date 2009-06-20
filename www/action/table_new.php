@@ -131,7 +131,7 @@ if ((isset($_GET['db_id']) && !empty($_GET['db_id']) && ereg('^[0-9]+$', $_GET['
 		{
 			$array_data['IF_SAVED'] = true;
 			$array_data['IF_NOT_SAVED'] = false;
-			$array_data['SCRIPT_URL'] = $array_data['TABLE_URL'];
+			$array_data['SCRIPT_URL'] = $config['site_url'] . '?action=table_translated&db_id=' . $_GET['db_id'] . '&id=' . $_GET['id'];
 		}
 		$temp = $db->fetch_big_array("SHOW COLUMNS FROM `" . $table_data['name_rus'] . "` FROM `" . $config['dbname_' . $table_data['db']] . "`");
 		$query = "INSERT INTO `" . $config['dbname_' . $table_data['db'] . '_rus'] . "`.`" . $table_data['name_rus'] . "` (";
