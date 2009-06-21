@@ -60,3 +60,9 @@ td {
 	color : #cccccc;
 	border-color : #333333;
   }
+
+.textinput_red {
+	background-color : #444444;
+	color : #cccccc;
+	border-color : #F00;
+}
