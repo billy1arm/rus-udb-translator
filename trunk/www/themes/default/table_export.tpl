@@ -28,5 +28,13 @@
 			<td class="td-title-left">Последний перерасчет</td>
 			<td class="td-right">{LAST_RECALCULATE}</td>
 		</tr>
+		<tr>
+			<td class="td-title-left">Всего экспортировано строк для ревизии {REV_EXPORT}</td>
+			<td class="td-right">{BIG_EXPORT}</td>
+		</tr>
+		<tr>
+			<td class="td-title-left">Экспортировано строк с ревизии {REV_PREV} на ревизию {REV_EXPORT}</td>
+			<td class="td-right">{SMALL_EXPORT}</td>
+		</tr>
 	</table>
 </div>
