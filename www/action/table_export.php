@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if (IN_MANGOS_RUS)
 {
 	die('HACK!');
@@ -22,17 +22,17 @@ if(isset($_GET['id']) && !empty($_GET['id']) && ereg('^[0-9]+$', $_GET['id']))
 	$array_data['ALL_ROWS'] = $table_data['row_orig'];
 	$array_data['LAST_RECALCULATE'] = $table_data['last_recalculate'];
 	$array_data['PERCENT_TRANSLATE'] = $percent;
-	
+
 	$big_export = '-- Date: ' . date("Y-m-d") . '
 -- Time: ' . date("H:i:s") . '
 -- Rev.: ' . $config['rev_rus'] . '
 
 ';
-	
+
 	$temp = $db->fetch_array("SHOW CREATE TABLE `" . $config['dbname_' . $table_data['db']] . "`.`" . $table_data['name_rus'] . "`");
 	$big_export .= 'DROP TABLE IF EXISTS `' . $table_data['name_rus'] . '`;
 ';
-	$tmp = str_replace("''", "'", $temp['Create Table']);
+	if (!set_magic_quotes_runtime) $tmp = str_replace("''", "'", $temp['Create Table']); else $tmp = $temp['Create Table'];
 	$big_export .= str_replace('CREATE TABLE ', 'CREATE TABLE IF NOT EXISTS ', $tmp) . ';
 
 ';
@@ -171,7 +171,7 @@ if(isset($_GET['id']) && !empty($_GET['id']) && ereg('^[0-9]+$', $_GET['id']))
 		}
 	}
 	$big_export .= $tmp;
-		
+
 	if ($table_data['name_rus'] == $table_data['name_orig'])
 	{
 		$big_export .= 'DROP TABLE IF EXISTS `' . $table_data['name_rus'] . '`;
@@ -182,7 +182,7 @@ RENAME TABLE `' . $table_data['name_rus'] . '2` TO `' . $table_data['name_rus'] 
 
 	$temp = $db->fetch_big_array("SELECT `" . $index_field_rus . "` FROM `" . $config['dbname_' . $table_data['db'] . '_rus'] . "`.`" . $table_data['name_rus'] . "`");
 	$big_export_row = 0;
-	
+
 	for ($i = 1; $i <= $temp[0]; $i++)
 	{
 		$query = 'SELECT `' . $index_field_rus . '`, ';
@@ -199,6 +199,7 @@ RENAME TABLE `' . $table_data['name_rus'] . '2` TO `' . $table_data['name_rus'] 
 			if ($tmp[$table_info[$j]['row_rus_name']] != '' && $tmp[$table_info[$j]['row_rus_name']] != NULL)
 			{
 				if ($upd_field > 0) $query .= ', ';
+				if (set_magic_quotes_runtime) $tmp[$table_info[$j]['row_rus_name']] = str_replace("''''", "'''", str_replace("'", "''", $tmp[$table_info[$j]['row_rus_name']]));
 				$query .= '`' . $table_info[$j]['row_rus_name'] . "` = '" . $tmp[$table_info[$j]['row_rus_name']] . "'";
 				$upd_field++;
 			}
@@ -213,6 +214,8 @@ RENAME TABLE `' . $table_data['name_rus'] . '2` TO `' . $table_data['name_rus'] 
 	if ($big_export_row > 0) $big_export .= '
 ';
 
+	if (!set_magic_quotes_runtime) $quotes = "'"; else $quotes = "";
+
 	for ($i = 1; $i <= $table_info[0]; $i++)
 	{
 		if ($table_info[$i]['default'] == 1)
@@ -220,35 +223,35 @@ RENAME TABLE `' . $table_data['name_rus'] . '2` TO `' . $table_data['name_rus'] 
 			$big_export .= 'UPDATE `' . $table_data['name_rus'] . '` SET `' . $table_info[$i]['row_default_name'] . '` = ';
 			if ($table_info[$i]['row_default_default'] == "''")
 			{
-				$big_export .=  "'" . $table_info[$i]['row_default_default'] . ' WHERE `' . $table_info[$i]['row_default_name'] . '` = NULL;
+				$big_export .=  $quotes . $table_info[$i]['row_default_default'] . ' WHERE `' . $table_info[$i]['row_default_name'] . '` = NULL;
 ';
 			}
 			else
 			{
-				$big_export .= $table_info[$i]['row_default_default'] . ' WHERE `' . $table_info[$i]['row_default_name'] . "` = ''';
+				$big_export .= $table_info[$i]['row_default_default'] . ' WHERE `' . $table_info[$i]['row_default_name'] . "` = " . $quotes . "'';
 ";
 			}
 		}
 		$big_export .= 'UPDATE `' . $table_data['name_rus'] . '` SET `' . $table_info[$i]['row_nonrus_name'] . '` = ';
 		if ($table_info[$i]['row_nonrus_default'] == "''")
 		{
-			$big_export .=  "'" . $table_info[$i]['row_nonrus_default'] . ' WHERE `' . $table_info[$i]['row_nonrus_name'] . '` = NULL;
+			$big_export .=  $quotes . $table_info[$i]['row_nonrus_default'] . ' WHERE `' . $table_info[$i]['row_nonrus_name'] . '` = NULL;
 ';
 		}
 		else
 		{
-				$big_export .= $table_info[$i]['row_nonrus_default'] . ' WHERE `' . $table_info[$i]['row_nonrus_name'] . "` = ''';
+				$big_export .= $table_info[$i]['row_nonrus_default'] . ' WHERE `' . $table_info[$i]['row_nonrus_name'] . "` = " . $quotes . "'';
 ";
 		}
 		$big_export .= 'UPDATE `' . $table_data['name_rus'] . '` SET `' . $table_info[$i]['row_rus_name'] . '` = ';
 		if ($table_info[$i]['row_rus_default'] == "''")
 		{
-			$big_export .=  "'" . $table_info[$i]['row_rus_default'] . ' WHERE `' . $table_info[$i]['row_rus_name'] . '` = NULL;
+			$big_export .=  $quotes . $table_info[$i]['row_rus_default'] . ' WHERE `' . $table_info[$i]['row_rus_name'] . '` = NULL;
 ';
 		}
 		else
 		{
-				$big_export .= $table_info[$i]['row_rus_default'] . ' WHERE `' . $table_info[$i]['row_rus_name'] . "` = ''';
+				$big_export .= $table_info[$i]['row_rus_default'] . ' WHERE `' . $table_info[$i]['row_rus_name'] . "` = " . $quotes . "'';
 ";
 		}
 	}
