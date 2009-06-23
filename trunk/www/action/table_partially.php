@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if (IN_MANGOS_RUS)
 {
 	die('HACK!');
@@ -119,24 +119,26 @@ if ((isset($_GET['db_id']) && !empty($_GET['db_id']) && ereg('^[0-9]+$', $_GET['
 			'TEXT_OF_ORIG' => htmlspecialchars($table_info[$i]['row_orig_data'], ENT_QUOTES),
 			'TEXT_OF_RUS' => htmlspecialchars($table_info[$i]['row_rus_data'], ENT_QUOTES)
 		);
-		
+
 		if (($table_info[$i]['row_orig_data'] != NULL && $table_info[$i]['row_orig_data'] != '' && ($table_info[$i]['row_rus_data'] == NULL || $table_info[$i]['row_rus_data'] == '')) || (($table_info[$i]['row_orig_data'] == NULL || $table_info[$i]['row_orig_data'] == '') && $table_info[$i]['row_rus_data'] != NULL && $table_info[$i]['row_rus_data'] != ''))
 		{
-			$array_data['ARRAY_FIELD'][$i]['IF_NOT_TRANSLATED1'] = true;
-			$array_data['ARRAY_FIELD'][$i]['IF_NOT_TRANSLATED2'] = true;
-			$array_data['ARRAY_FIELD'][$i]['IF_NOT_TRANSLATED3'] = true;
-			$array_data['ARRAY_FIELD'][$i]['IF_TRANSLATED'] = false;
+			$array_data['ARRAY_FIELD'][$i]['IF_NOT_TRANSLATED'] = true;
 		}
 		else
 		{
-			$array_data['ARRAY_FIELD'][$i]['IF_NOT_TRANSLATED1'] = false;
-			$array_data['ARRAY_FIELD'][$i]['IF_NOT_TRANSLATED2'] = false;
-			$array_data['ARRAY_FIELD'][$i]['IF_NOT_TRANSLATED3'] = false;
-			$array_data['ARRAY_FIELD'][$i]['IF_TRANSLATED'] = true;
+			$array_data['ARRAY_FIELD'][$i]['IF_NOT_TRANSLATED'] = false;
 		}
 		if (isset($_GET['save']) && $_GET['save'] == 'true' && isset($_POST['change_' . $table_info[$i]['row_rus_name']]) && $_POST['change_' . $table_info[$i]['row_rus_name']] == 'on')
 		{
 			$array_data['ARRAY_FIELD'][$i]['TEXT_OF_RUS'] = htmlspecialchars($_POST['text_of_' . $table_info[$i]['row_rus_name']], ENT_QUOTES);
+			if (($table_info[$i]['row_orig_data'] != NULL && $table_info[$i]['row_orig_data'] != '' && ($_POST['text_of_' . $table_info[$i]['row_rus_name']] == NULL || $_POST['text_of_' . $table_info[$i]['row_rus_name']] == '')) || (($table_info[$i]['row_orig_data'] == NULL || $table_info[$i]['row_orig_data'] == '') && $_POST['text_of_' . $table_info[$i]['row_rus_name']] != NULL && $_POST['text_of_' . $table_info[$i]['row_rus_name']] != ''))
+			{
+				$array_data['ARRAY_FIELD'][$i]['IF_NOT_TRANSLATED'] = true;
+			}
+			else
+			{
+				$array_data['ARRAY_FIELD'][$i]['IF_NOT_TRANSLATED'] = false;
+			}
 		}
 	}
 
@@ -146,7 +148,15 @@ if ((isset($_GET['db_id']) && !empty($_GET['db_id']) && ereg('^[0-9]+$', $_GET['
 		{
 			if (isset($_POST['change_' . $table_info[$i]['row_rus_name']]) && $_POST['change_' . $table_info[$i]['row_rus_name']] == 'on')
 			{
-				$db->query("UPDATE `" . $config['dbname_' . $table_data['db']. '_rus'] . "`.`" . $table_data['name_rus'] . "` SET `" . $table_info[$i]['row_rus_name'] . "` = '" . $_POST['text_of_' . $table_info[$i]['row_rus_name']] . "' WHERE `" . $index_field_rus . "` = " . $_GET['id']);
+				if (set_magic_quotes_runtime)
+				{
+					$tmp = addslashes($_POST['text_of_' . $table_info[$i]['row_rus_name']]);
+				}
+				else
+				{
+					$tmp = $_POST['text_of_' . $table_info[$i]['row_rus_name']];
+				}
+				$db->query("UPDATE `" . $config['dbname_' . $table_data['db']. '_rus'] . "`.`" . $table_data['name_rus'] . "` SET `" . $table_info[$i]['row_rus_name'] . "` = '" . $tmp . "' WHERE `" . $index_field_rus . "` = " . $_GET['id']);
 			}
 		}
 	}

@@ -131,7 +131,15 @@ if ((isset($_GET['db_id']) && !empty($_GET['db_id']) && ereg('^[0-9]+$', $_GET['
 		{
 			if (isset($_POST['change_' . $table_info[$i]['row_rus_name']]) && $_POST['change_' . $table_info[$i]['row_rus_name']] == 'on')
 			{
-				$db->query("UPDATE `" . $config['dbname_' . $table_data['db']. '_rus'] . "`.`" . $table_data['name_rus'] . "` SET `" . $table_info[$i]['row_rus_name'] . "` = '" . $_POST['text_of_' . $table_info[$i]['row_rus_name']] . "' WHERE `" . $index_field_rus . "` = " . $_GET['id']);
+				if (set_magic_quotes_runtime)
+				{
+					$tmp = addslashes($_POST['text_of_' . $table_info[$i]['row_rus_name']]);
+				}
+				else
+				{
+					$tmp = $_POST['text_of_' . $table_info[$i]['row_rus_name']];
+				}
+				$db->query("UPDATE `" . $config['dbname_' . $table_data['db']. '_rus'] . "`.`" . $table_data['name_rus'] . "` SET `" . $table_info[$i]['row_rus_name'] . "` = '" . $tmp . "' WHERE `" . $index_field_rus . "` = " . $_GET['id']);
 			}
 		}
 	}
