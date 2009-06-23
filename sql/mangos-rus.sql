@@ -2,10 +2,10 @@
 -- version 3.2.0-rc1
 -- http://www.phpmyadmin.net
 --
--- Хост: localhost
--- Время создания: Июн 22 2009 г., 06:10
--- Версия сервера: 5.1.34
--- Версия PHP: 5.2.9-2
+-- Хост: localhost:3306
+-- Время создания: Июн 23 2009 г., 05:36
+-- Версия сервера: 5.1.32
+-- Версия PHP: 5.2.9
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `config` (
 
 INSERT INTO `config` (`name`, `value`) VALUES
 ('rev_orig', '21'),
-('rev_rus', '24'),
+('rev_rus', '25'),
 ('theme', 'default'),
 ('title', 'Mangos-Rus');
 
@@ -71,15 +71,15 @@ CREATE TABLE IF NOT EXISTS `config_db` (
 INSERT INTO `config_db` (`id`, `last_recalculate`, `db`, `name_rus`, `name_orig`, `row_rus`, `full_translate`, `row_orig`, `url_orig`, `url_rus`, `description`) VALUES
 (1, '2009-06-22 01:53:30', 'mangos', 'creature_ai_texts', 'creature_ai_texts', 1, 1, 559, NULL, NULL, 'В этой таблице содержаться тексты, использующиеся в скриптах eventai. Таблица отвечает за текст, тип отображения(сказать/прокричать/сделать жест) и соответствующие звуки или жесты.'),
 (2, '2009-06-12 15:41:55', 'mangos', 'db_script_string', 'db_script_string', 0, 0, 316, NULL, NULL, 'Хранит тексты для скриптов.'),
-(3, '2009-06-22 03:57:09', 'mangos', 'locales_achievement_reward', 'achievement_reward', 0, 0, 51, NULL, NULL, 'Данная таблица содержит награды за достижения.'),
+(3, '2009-06-23 04:59:25', 'mangos', 'locales_achievement_reward', 'achievement_reward', 51, 51, 51, 'http://www.wowhead.com/?achievement=', 'http://ru.wowhead.com/?achievement=', 'Данная таблица содержит награды за достижения.'),
 (4, '2009-06-22 05:43:53', 'mangos', 'locales_creature', 'creature_template', 19579, 19579, 26300, 'http://www.wowhead.com/?npc=', 'http://ru.wowhead.com/?npc=', 'Таблица используеться для предоставления переведенных названий существ клиентам с определенной локализацией.'),
 (5, '2009-06-12 17:53:08', 'mangos', 'locales_gameobject', 'gameobject_template', 15026, 15026, 17004, 'http://www.wowhead.com/?object=', 'http://ru.wowhead.com/?object=', 'Таблица используеться для предоставления переведенных названий игровых объектов клиентам с определенной локализацией.'),
 (6, '2009-06-12 17:54:43', 'mangos', 'locales_item', 'item_template', 31257, 31257, 31408, 'http://www.wowhead.com/?item=', 'http://ru.wowhead.com/?item=', 'Таблица используеться для предоставления переведенных названий предметов клиентам с определенной локализацией.'),
 (7, '2009-06-12 17:53:17', 'mangos', 'locales_npc_option', 'npc_option', 48, 48, 48, NULL, NULL, 'Таблица используеться для предоставления переведенных диалогов НИП клиентам с определенной локализацией.'),
-(8, '2009-06-22 01:51:58', 'mangos', 'locales_npc_text', 'npc_text', 3573, 3491, 5123, NULL, NULL, 'Таблица используеться для предоставления переведенных текстов НИП клиентам с определенной локализацией.'),
+(8, '2009-06-23 00:50:56', 'mangos', 'locales_npc_text', 'npc_text', 3579, 3579, 5123, NULL, NULL, 'Таблица используеться для предоставления переведенных текстов НИП клиентам с определенной локализацией.'),
 (9, '2009-06-12 17:53:31', 'mangos', 'locales_page_text', 'page_text', 1265, 1265, 1624, NULL, NULL, 'Таблица используеться для предоставления переведенных текстов, используемых в предметах, клиентам с определенной локализацией.'),
 (10, '2009-06-12 15:40:34', 'mangos', 'locales_points_of_interest', 'points_of_interest', 0, 0, 125, NULL, NULL, 'Таблица используеться для предоставления переведенных названий целей поиска клиентам с определенной локализацией.'),
-(11, '2009-06-12 17:53:39', 'mangos', 'locales_quest', 'quest_template', 8414, 3565, 8423, 'http://www.wowhead.com/?quest=', 'http://ru.wowhead.com/?quest=', 'Таблица используеться для предоставления переведенных квестов клиентам с определенной локализацией.'),
+(11, '2009-06-23 00:51:10', 'mangos', 'locales_quest', 'quest_template', 8414, 3576, 8423, 'http://www.wowhead.com/?quest=', 'http://ru.wowhead.com/?quest=', 'Таблица используеться для предоставления переведенных квестов клиентам с определенной локализацией.'),
 (12, '2009-06-12 17:53:47', 'mangos', 'mangos_string', 'mangos_string', 260, 260, 649, NULL, NULL, 'Cодержит все сообщения, посылаемые сервером игрокам. Основная цель таблицы - перевод этих сообщений.'),
 (13, '2009-06-20 12:56:06', 'scriptdev2', 'custom_texts', 'custom_texts', 0, 0, 0, NULL, NULL, 'Таблица используеться для предоставления переведенных произвольных текстов в SD2 клиентам с определенной локализацией.'),
 (14, '2009-06-22 00:40:03', 'scriptdev2', 'script_texts', 'script_texts', 1, 1, 1576, NULL, NULL, 'Таблица используеться для предоставления переведенных сообщений в SD2 клиентам с определенной локализацией.');
@@ -149,37 +149,6 @@ INSERT INTO `config_table` (`id_table`, `name`, `custom`, `default`, `row_orig_n
 (12, 'content', 0, 1, 'content_default', 'Отсутствует.'),
 (13, 'content', 0, 1, 'content_default', 'Отсутствует.'),
 (14, 'content', 0, 1, 'content_default', 'Отсутствует.');
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `rus_udb_rev`
---
-
-DROP TABLE IF EXISTS `rus_udb_rev`;
-CREATE TABLE IF NOT EXISTS `rus_udb_rev` (
-  `name` varchar(50) NOT NULL,
-  `value` int(11) unsigned NOT NULL,
-  PRIMARY KEY (`name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `rus_udb_rev`
---
-
-INSERT INTO `rus_udb_rev` (`name`, `value`) VALUES
-('creature_ai_texts', 23),
-('db_script_string', 23),
-('locales_achievement_reward', 23),
-('locales_creature', 23),
-('locales_gameobject', 23),
-('locales_item', 23),
-('locales_npc_option', 23),
-('locales_npc_text', 23),
-('locales_page_text', 23),
-('locales_points_of_interest', 23),
-('locales_quest', 23),
-('mangos_string', 23);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

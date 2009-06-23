@@ -143,21 +143,27 @@ if ((isset($_GET['db_id']) && !empty($_GET['db_id']) && ereg('^[0-9]+$', $_GET['
 			{
 				if ($table_info[$j]['default'] == 1 && $temp[$i]['Field'] == $table_info[$j]['row_default_name'])
 				{
-					 $temp[$i]['Value'] = "'" . $table_info[$j]['row_default_data'] . "'";
+					$temp[$i]['Value'] = $table_info[$j]['row_default_data'];
+					if (set_magic_quotes_runtime) $temp[$i]['Value'] = addslashes($temp[$i]['Value']);
+					$temp[$i]['Value'] = "'" . $temp[$i]['Value'] . "'";
 				}
 				elseif ($temp[$i]['Field'] == $table_info[$j]['row_nonrus_name'])
 				{
-					$temp[$i]['Value'] = "'" . $table_info[$j]['row_nonrus_data'] . "'";
+					$temp[$i]['Value'] = $table_info[$j]['row_nonrus_data'];
+					if (set_magic_quotes_runtime) $temp[$i]['Value'] = addslashes($temp[$i]['Value']);
+					$temp[$i]['Value'] = "'" . $temp[$i]['Value'] . "'";
 				}
 				elseif ($temp[$i]['Field'] == $table_info[$j]['row_rus_name'])
 				{
-					$temp[$i]['Value'] = "'" . $_POST['text_of_' . $table_info[$j]['row_rus_name']] . "'";
+					$temp[$i]['Value'] = $_POST['text_of_' . $table_info[$j]['row_rus_name']];
+					if (set_magic_quotes_runtime) $temp[$i]['Value'] = addslashes($temp[$i]['Value']);
+					$temp[$i]['Value'] = "'" . $temp[$i]['Value'] . "'";
 				}
 				elseif ($temp[$i]['Field'] == $index_field_rus)
 				{
 					$temp[$i]['Value'] = $_GET['id'];
 				}
-				else
+				elseif($temp[$i]['Value'] == '' || $temp[$i]['Value'] == NULL)
 				{
 					$tmp = $db->fetch_array("SELECT `" . $temp[$i]['Field'] . "` FROM `" . $config['dbname_' . $table_data['db']] . "`.`" . $table_data['name_orig'] . "` WHERE `" . $index_field_orig . "` = " . $_GET['id']);
 					if ($tmp && $tmp[$temp[$i]['Field']] != NULL)

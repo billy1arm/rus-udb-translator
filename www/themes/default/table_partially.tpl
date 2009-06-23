@@ -31,9 +31,9 @@
 			</tr>
 <!-- ARRAY_FIELD_BEGIN -->
 			<tr>
-				<td class="td-left"><span title="Описание: {DESCRIPTION} Оригинал: {NAME_OF_ORIG_FIELD}">{NAME_OF_RUS_FIELD}</span><!-- IF_NOT_TRANSLATED1_BEGIN --><input type="checkbox" name="change_{NAME_OF_RUS_FIELD}" id="change_{NAME_OF_RUS_FIELD}" style="display:none;" /><!-- IF_NOT_TRANSLATED1_END --></td>
+				<td class="td-left"><span title="Описание: {DESCRIPTION} Оригинал: {NAME_OF_ORIG_FIELD}">{NAME_OF_RUS_FIELD}</span><input type="checkbox" name="change_{NAME_OF_RUS_FIELD}" id="change_{NAME_OF_RUS_FIELD}" style="display:none;" /></td>
 				<td class="td-center"><textarea name="text_of_{NAME_OF_ORIG_FIELD}" cols="40" rows="5" readonly="readonly" id="text_of_orig" class="textinput">{TEXT_OF_ORIG}</textarea></td>
-				<td class="td-center"><textarea name="text_of_{NAME_OF_RUS_FIELD}" id="text_of_rus" cols="40" rows="5" class="textinput<!-- IF_NOT_TRANSLATED2_BEGIN -->_red<!-- IF_NOT_TRANSLATED2_END -->"<!-- IF_TRANSLATED_BEGIN --> readonly="readonly"<!-- IF_TRANSLATED_END --><!-- IF_NOT_TRANSLATED3_BEGIN --> onchange="document.edit.change_{NAME_OF_RUS_FIELD}.checked='checked'"<!-- IF_NOT_TRANSLATED3_END -->>{TEXT_OF_RUS}</textarea></td>
+				<td class="td-center"><textarea name="text_of_{NAME_OF_RUS_FIELD}" id="text_of_rus" cols="40" rows="5" class="textinput<!-- IF_NOT_TRANSLATED_BEGIN -->_red<!-- IF_NOT_TRANSLATED_END -->" onchange="document.edit.change_{NAME_OF_RUS_FIELD}.checked='checked'">{TEXT_OF_RUS}</textarea></td>
 			</tr>
 <!-- ARRAY_FIELD_END -->
 		</table>
