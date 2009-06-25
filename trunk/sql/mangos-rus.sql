@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 3.2.0-rc1
+-- version 3.2.0
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost:3306
--- Время создания: Июн 23 2009 г., 05:36
+-- Время создания: Июн 23 2009 г., 08:27
 -- Версия сервера: 5.1.32
 -- Версия PHP: 5.2.9
 
@@ -52,7 +52,7 @@ DROP TABLE IF EXISTS `config_db`;
 CREATE TABLE IF NOT EXISTS `config_db` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `last_recalculate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `db` varchar(50) NOT NULL DEFAULT 'mangos',
+  `db` enum('mangos','scriptdev2') NOT NULL DEFAULT 'mangos',
   `name_rus` varchar(50) NOT NULL,
   `name_orig` varchar(50) NOT NULL,
   `row_rus` int(11) unsigned NOT NULL DEFAULT '0',
@@ -94,8 +94,8 @@ DROP TABLE IF EXISTS `config_table`;
 CREATE TABLE IF NOT EXISTS `config_table` (
   `id_table` int(11) NOT NULL,
   `name` varchar(50) NOT NULL DEFAULT '',
-  `custom` tinyint(1) NOT NULL DEFAULT '0',
-  `default` tinyint(1) NOT NULL DEFAULT '0',
+  `custom` enum('0','1') NOT NULL DEFAULT '0',
+  `default` enum('0','1') NOT NULL DEFAULT '0',
   `row_orig_name` varchar(50) NOT NULL,
   `description` text,
   PRIMARY KEY (`id_table`,`name`)
@@ -106,49 +106,49 @@ CREATE TABLE IF NOT EXISTS `config_table` (
 --
 
 INSERT INTO `config_table` (`id_table`, `name`, `custom`, `default`, `row_orig_name`, `description`) VALUES
-(1, 'content', 0, 1, 'content_default', 'Отсутствует.'),
-(2, 'content', 0, 1, 'content_default', 'Отсутствует.'),
-(3, 'subject', 0, 0, 'subject', 'Отсутствует.'),
-(3, 'text', 0, 0, 'text', 'Отсутствует.'),
-(4, 'name', 0, 0, 'name', 'Отсутствует.'),
-(4, 'subname', 0, 0, 'subname', 'Отсутствует.'),
-(5, 'name', 0, 0, 'name', 'Отсутствует.'),
-(5, 'castbarcaption', 0, 0, 'castBarCaption', 'Отсутствует.'),
-(6, 'name', 0, 0, 'name', 'Отсутствует.'),
-(6, 'description', 0, 0, 'description', 'Отсутствует.'),
-(7, 'option_text', 0, 0, 'option_text', 'Отсутствует.'),
-(7, 'box_text', 0, 0, 'box_text', 'Отсутствует.'),
-(8, 'Text0_0', 0, 0, 'text0_0', 'Отсутствует.'),
-(8, 'Text0_1', 0, 0, 'text0_1', 'Отсутствует.'),
-(8, 'Text1_0', 0, 0, 'text1_0', 'Отсутствует.'),
-(8, 'Text1_1', 0, 0, 'text1_1', 'Отсутствует.'),
-(8, 'Text2_0', 0, 0, 'text2_0', 'Отсутствует.'),
-(8, 'Text2_1', 0, 0, 'text2_1', 'Отсутствует.'),
-(8, 'Text3_0', 0, 0, 'text3_0', 'Отсутствует.'),
-(8, 'Text3_1', 0, 0, 'text3_1', 'Отсутствует.'),
-(8, 'Text4_0', 0, 0, 'text4_0', 'Отсутствует.'),
-(8, 'Text4_1', 0, 0, 'text4_1', 'Отсутствует.'),
-(8, 'Text5_0', 0, 0, 'text5_0', 'Отсутствует.'),
-(8, 'Text5_1', 0, 0, 'text5_1', 'Отсутствует.'),
-(8, 'Text6_0', 0, 0, 'text6_0', 'Отсутствует.'),
-(8, 'Text6_1', 0, 0, 'text6_1', 'Отсутствует.'),
-(8, 'Text7_0', 0, 0, 'text7_0', 'Отсутствует.'),
-(8, 'Text7_1', 0, 0, 'text7_1', 'Отсутствует.'),
-(9, 'Text', 0, 0, 'text', 'Отсутствует.'),
-(10, 'icon_name', 0, 0, 'icon_name', 'Отсутствует.'),
-(11, 'Title', 0, 0, 'Title', 'Отсутствует.'),
-(11, 'Details', 0, 0, 'Details', 'Отсутствует.'),
-(11, 'Objectives', 0, 0, 'Objectives', 'Отсутствует.'),
-(11, 'OfferRewardText', 0, 0, 'OfferRewardText', 'Отсутствует.'),
-(11, 'RequestItemsText', 0, 0, 'RequestItemsText', 'Отсутствует.'),
-(11, 'EndText', 0, 0, 'EndText', 'Отсутствует.'),
-(11, 'ObjectiveText1', 0, 0, 'ObjectiveText1', 'Отсутствует.'),
-(11, 'ObjectiveText2', 0, 0, 'ObjectiveText2', 'Отсутствует.'),
-(11, 'ObjectiveText3', 0, 0, 'ObjectiveText3', 'Отсутствует.'),
-(11, 'ObjectiveText4', 0, 0, 'ObjectiveText4', 'Отсутствует.'),
-(12, 'content', 0, 1, 'content_default', 'Отсутствует.'),
-(13, 'content', 0, 1, 'content_default', 'Отсутствует.'),
-(14, 'content', 0, 1, 'content_default', 'Отсутствует.');
+(1, 'content', '0', '1', 'content_default', 'Отсутствует.'),
+(2, 'content', '0', '1', 'content_default', 'Отсутствует.'),
+(3, 'subject', '0', '0', 'subject', 'Отсутствует.'),
+(3, 'text', '0', '0', 'text', 'Отсутствует.'),
+(4, 'name', '0', '0', 'name', 'Отсутствует.'),
+(4, 'subname', '0', '0', 'subname', 'Отсутствует.'),
+(5, 'name', '0', '0', 'name', 'Отсутствует.'),
+(5, 'castbarcaption', '0', '0', 'castBarCaption', 'Отсутствует.'),
+(6, 'name', '0', '0', 'name', 'Отсутствует.'),
+(6, 'description', '0', '0', 'description', 'Отсутствует.'),
+(7, 'option_text', '0', '0', 'option_text', 'Отсутствует.'),
+(7, 'box_text', '0', '0', 'box_text', 'Отсутствует.'),
+(8, 'Text0_0', '0', '0', 'text0_0', 'Отсутствует.'),
+(8, 'Text0_1', '0', '0', 'text0_1', 'Отсутствует.'),
+(8, 'Text1_0', '0', '0', 'text1_0', 'Отсутствует.'),
+(8, 'Text1_1', '0', '0', 'text1_1', 'Отсутствует.'),
+(8, 'Text2_0', '0', '0', 'text2_0', 'Отсутствует.'),
+(8, 'Text2_1', '0', '0', 'text2_1', 'Отсутствует.'),
+(8, 'Text3_0', '0', '0', 'text3_0', 'Отсутствует.'),
+(8, 'Text3_1', '0', '0', 'text3_1', 'Отсутствует.'),
+(8, 'Text4_0', '0', '0', 'text4_0', 'Отсутствует.'),
+(8, 'Text4_1', '0', '0', 'text4_1', 'Отсутствует.'),
+(8, 'Text5_0', '0', '0', 'text5_0', 'Отсутствует.'),
+(8, 'Text5_1', '0', '0', 'text5_1', 'Отсутствует.'),
+(8, 'Text6_0', '0', '0', 'text6_0', 'Отсутствует.'),
+(8, 'Text6_1', '0', '0', 'text6_1', 'Отсутствует.'),
+(8, 'Text7_0', '0', '0', 'text7_0', 'Отсутствует.'),
+(8, 'Text7_1', '0', '0', 'text7_1', 'Отсутствует.'),
+(9, 'Text', '0', '0', 'text', 'Отсутствует.'),
+(10, 'icon_name', '0', '0', 'icon_name', 'Отсутствует.'),
+(11, 'Title', '0', '0', 'Title', 'Отсутствует.'),
+(11, 'Details', '0', '0', 'Details', 'Отсутствует.'),
+(11, 'Objectives', '0', '0', 'Objectives', 'Отсутствует.'),
+(11, 'OfferRewardText', '0', '0', 'OfferRewardText', 'Отсутствует.'),
+(11, 'RequestItemsText', '0', '0', 'RequestItemsText', 'Отсутствует.'),
+(11, 'EndText', '0', '0', 'EndText', 'Отсутствует.'),
+(11, 'ObjectiveText1', '0', '0', 'ObjectiveText1', 'Отсутствует.'),
+(11, 'ObjectiveText2', '0', '0', 'ObjectiveText2', 'Отсутствует.'),
+(11, 'ObjectiveText3', '0', '0', 'ObjectiveText3', 'Отсутствует.'),
+(11, 'ObjectiveText4', '0', '0', 'ObjectiveText4', 'Отсутствует.'),
+(12, 'content', '0', '1', 'content_default', 'Отсутствует.'),
+(13, 'content', '0', '1', 'content_default', 'Отсутствует.'),
+(14, 'content', '0', '1', 'content_default', 'Отсутствует.');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
