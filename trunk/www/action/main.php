@@ -4,7 +4,7 @@ if (IN_MANGOS_RUS)
 	die('HACK!');
 }
 
-if(isset($_GET['id']) && !empty($_GET['id']) && ereg('^[0-9]+$', $_GET['id']))
+if (isset($_GET['id']) && !empty($_GET['id']) && ereg('^[0-9]+$', $_GET['id']))
 {
 	$table_data = $db->fetch_array("SELECT * FROM `config_db` WHERE `id` = " . $_GET['id']);
 	$table_info = $db->fetch_big_array("SELECT * FROM `config_table` WHERE `id_table` =" . $_GET['id']);
@@ -69,7 +69,7 @@ if(isset($_GET['id']) && !empty($_GET['id']) && ereg('^[0-9]+$', $_GET['id']))
 			$query_rus .= " OR ";
 		}
 		$temp_translate = $db->fetch_array($query_translate);
-		if($temp_translate['count'] > $count_translate) $count_translate = $temp_translate['count'];
+		if ($temp_translate['count'] > $count_translate) $count_translate = $temp_translate['count'];
 	}
 	$count_orig = $db->fetch_array($query_orig);
 	$count_rus = $db->fetch_array($query_rus);
@@ -88,7 +88,7 @@ $transl[3] = 0;
 
 foreach ($tables as $id => $array_value)
 {
-	if(is_array($array_value))
+	if (is_array($array_value))
 	{
 		if ($array_value['row_orig'] == 0) $percent = 100; else $percent = round($array_value['full_translate']/$array_value['row_orig']*100, 2);
 

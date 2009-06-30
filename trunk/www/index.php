@@ -14,7 +14,7 @@ if (!isset($_REQUEST['action']) || empty($_REQUEST['action']) || $work->url_chec
 else
 {
 	$action = $_REQUEST['action'];
-	if(!@fopen($config['site_dir'] . 'action/' . $action . '.php', 'r')) $action = 'main';
+	if (!@fopen($config['site_dir'] . 'action/' . $action . '.php', 'r')) $action = 'main';
 }
 
 include_once($config['site_dir'] . 'action/' . $action . '.php');
