@@ -144,16 +144,8 @@ if (isset($_GET['id']) && !empty($_GET['id']) && ereg('^[0-9]+$', $_GET['id']))
 		}
 		if ($non_field == 0)
 		{
-			if ($temp[$i]['Field'] == $index_field_rus && $index_field_rus != $index_field_orig)
-			{
-				$tmp .= '`' . $index_field_orig . '` AS `' . $index_field_rus . '`, ';
-			}
-			else
-			{
-				$tmp .= '`' . $temp[$i]['Field'] . '`, ';
-			}
 			$big_export .= '`' . $temp[$i]['Field'] . '`, ';
-
+			$tmp .= '`' . $temp[$i]['Field'] . '`, ';
 		}
 	}
 	for ($i = 1; $i <= $table_info[0]; $i++)
