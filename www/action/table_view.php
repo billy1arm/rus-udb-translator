@@ -4,7 +4,7 @@ if (IN_MANGOS_RUS)
 	die('HACK!');
 }
 
-if(isset($_GET['id']) && !empty($_GET['id']) && ereg('^[0-9]+$', $_GET['id']))
+if (isset($_GET['id']) && !empty($_GET['id']) && ereg('^[0-9]+$', $_GET['id']))
 {
 	$array_data = array();
 	$array_data['SITE_URL'] = $config['site_url'];
@@ -196,7 +196,7 @@ if(isset($_GET['id']) && !empty($_GET['id']) && ereg('^[0-9]+$', $_GET['id']))
 			$array_data['IF_SELECT_SUBACT'] = false;
 		}
 		$array_data['ALL_ROW'] = $temp[0];
-		if(isset($_GET['start']) && !empty($_GET['start']) && ereg('^[0-9]+$', $_GET['start']) && $_GET['start'] <= $array_data['ALL_ROW'] && $_GET['start'] != 0)
+		if (isset($_GET['start']) && !empty($_GET['start']) && ereg('^[0-9]+$', $_GET['start']) && $_GET['start'] <= $array_data['ALL_ROW'] && $_GET['start'] != 0)
 		{
 			$start_row = $_GET['start'];
 		}

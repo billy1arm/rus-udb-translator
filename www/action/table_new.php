@@ -163,7 +163,7 @@ if ((isset($_GET['db_id']) && !empty($_GET['db_id']) && ereg('^[0-9]+$', $_GET['
 				{
 					$temp[$i]['Value'] = $_GET['id'];
 				}
-				elseif($temp[$i]['Value'] == '' || $temp[$i]['Value'] == NULL)
+				elseif ($temp[$i]['Value'] == '' || $temp[$i]['Value'] == NULL)
 				{
 					$tmp = $db->fetch_array("SELECT `" . $temp[$i]['Field'] . "` FROM `" . $config['dbname_' . $table_data['db']] . "`.`" . $table_data['name_orig'] . "` WHERE `" . $index_field_orig . "` = " . $_GET['id']);
 					if ($tmp && $tmp[$temp[$i]['Field']] != NULL)
